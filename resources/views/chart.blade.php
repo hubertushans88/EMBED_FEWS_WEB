@@ -161,7 +161,7 @@
 
                     <div class="col-lg-3">
                         <div class="card mb-4 progress-banner">
-                            <div class="card-body justify-content-between d-flex flex-row align-items-center" style="background-color: seagreen; border-radius: 10px">
+                            <div class="card-body justify-content-between d-flex flex-row align-items-center" id="predict" style="background-color: seagreen; border-radius: 10px">
                                 <div>
                                     <i class="iconsminds-magnifi-glass mr-2 text-white align-text-bottom d-inline-block"></i>
                                     <div>
@@ -171,11 +171,12 @@
                                 </div>
 
                                 <div>
-                                    <div role="progressbar"
-                                         class="progress-bar-circle progress-bar-banner position-relative"
-                                         data-color="white" data-trail-color="rgba(255,255,255,0.2)"
-                                         aria-valuenow="25" aria-valuemax="100" data-show-percent="false">
-                                    </div>
+                                    <h1 style="color: white" id="fai">%</h1>
+{{--                                    <div role="progressbar" id="prediction"--}}
+{{--                                         class="progress-bar-circle progress-bar-banner position-relative"--}}
+{{--                                         data-color="white" data-trail-color="rgba(255,255,255,0.2)"--}}
+{{--                                         aria-valuenow="25" aria-valuemax="100" data-show-percent="false">--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -322,6 +323,7 @@
 
     setInterval(function (){
         updateChart();
+        updateStat()
     },1500);
 
     function updateChart(){
@@ -355,8 +357,18 @@
         })
     }
 
-    function updateStat(node1, node2, node3){
-
+    function updateStat(){
+        $.ajax({
+            type: 'GET',
+            url: '/ai',
+            datatype: 'json',
+            success: function (data) {
+                $('#fai').text(data+" %")
+                if(data<50)$('#predict').css("background-color",'seagreen')
+                else if(data<80) $('#predict').css("background-color",'orange')
+                else $('#predict').css("background-color",'red')
+            }
+        })
     }
 
 
