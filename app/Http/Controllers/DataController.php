@@ -36,6 +36,15 @@ class DataController extends Controller
         return json_encode($mdata);
     }
 
+    public function stat(){
+        $data = array();
+        $data['node1'] = Measurements::where('node','node1')->latest('created_at')->first();
+        $data['node2'] = Measurements::where('node','node2')->latest('created_at')->first();
+        $data['node3'] = Measurements::where('node','node3')->latest('created_at')->first();
+
+        return json_encode($data);
+    }
+
     public function prediction(){
         $pn1 = Predictions::where('node','node1')->latest('created_at')->first();
         $pn2 = Predictions::where('node','node2')->latest('created_at')->first();

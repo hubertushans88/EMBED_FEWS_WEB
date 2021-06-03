@@ -22,3 +22,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/data','DataController@index');
 Route::get('/ai','DataController@prediction');
+
+Route::get('/stat','DataController@stat');

@@ -334,9 +334,7 @@
             success: function (data){
                 var json = $.parseJSON(data)
                 updateStat(json.node1[json.node1.length-1],json.node1[json.node1.length-1],json.node1[json.node1.length-1])
-                $('#node1').text(json.node1[json.node1.length-1]);
-                $('#node2').text(json.node2[json.node2.length-1]);
-                $('#node3').text(json.node3[json.node3.length-1]);
+
                 $.each(myChart.data.labels, function (i,v){
                     myChart.data.labels.pop();
                 })
@@ -367,6 +365,17 @@
                 if(data<50)$('#predict').css("background-color",'seagreen')
                 else if(data<80) $('#predict').css("background-color",'orange')
                 else $('#predict').css("background-color",'red')
+            }
+        })
+        $.ajax({
+            type: 'GET',
+            url: '/stat',
+            datatype: 'json',
+            success: function (data) {
+                var json = $.parseJSON(data)
+                $('#node1').text(json.node1);
+                $('#node2').text(json.node2);
+                $('#node3').text(json.node3);
             }
         })
     }
