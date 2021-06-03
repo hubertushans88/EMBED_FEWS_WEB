@@ -373,9 +373,10 @@
             datatype: 'json',
             success: function (data) {
                 var json = $.parseJSON(data)
-                $('#node1').text(json.node1);
-                $('#node2').text(json.node2);
-                $('#node3').text(json.node3);
+
+                $('#node1').text(json.node1.value);
+                $('#node2').text(json.node2.value);
+                $('#node3').text(json.node3.value);
             }
         })
     }
